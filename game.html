@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RAZ单词星空大战游戏</title>
+	<link rel="shortcut icon" href="media/favicon.png" type="image/png">
+	<link rel="icon" href="media/favicon.png" type="image/png">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<style type="text/css">
+		html,body {
+			background-color: #000;
+			background-image: url(media/background/page.png);
+			color: #555;
+			font-family: helvetica, arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			font-size: 10pt;
+		}
+		a {
+			color: #777;
+			text-decoration: none;
+		}
+		a:hover {
+			color: #ccc;
+		}
+		
+		#ztype-game-canvas {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			margin: auto;
+			border: 0;
+			z-index: 1000002;
+			box-shadow: 0 0 30px #000;
+		}
+		body.mobile #ztype-byline { display: none; }
+		body.mobile #ztype-gsense { display: none; }
+		#book{
+			display:none;
+			position:fixed;
+			z-index:100000000;
+			left:50%;
+			margin-left:-100px;
+			top:40%;
+			color:#fff;
+			font-size:20px;
+			width:200px;
+			text-align:center;
+		}
+	</style>
+	<script type="text/javascript" src="jquery-3.6.0.min.js" charset="UTF-8"></script>
+	<script>
+		function getQueryVariable(variable)
+		{
+		       var query = window.location.search.substring(1);
+		       var vars = query.split("&");
+		       for (var i=0;i<vars.length;i++) {
+		               var pair = vars[i].split("=");
+		               if(pair[0] == variable){return pair[1];}
+		       }
+		       return(false);
+		}
+	</script>
+	<script type="text/javascript" src="ztype.js?v=10" charset="UTF-8"></script>
+	<script>
+	var words = []
+	
+	var num = getQueryVariable("num")
+	var start = 0
+	var end = 10
+	if(getQueryVariable("start")){
+		start = Number(getQueryVariable("start")) - 1
+	}
+	if(getQueryVariable("end")){
+		end = Number(getQueryVariable("end"))
+	}
+	if(!num){
+		num = 'AA'
+	}
+	document.write('<script type="text/javascript" src="words/' + num + '.js?v=19" charset="UTF-8"></' + 'script>')
+	document.write('<script type="text/javascript" src="words/' + num + '-CN.js?v=19" charset="UTF-8"></' + 'script>')
+	</script>
+	
+	<!-- <script type="text/javascript" src="ztype-trainer.js" charset="UTF-8"></script> -->
+	<!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+	<!-- <script type="text/javascript" src="words/aa.js?v=6" charset="UTF-8"></script> -->
+	<script>
+if(location.hostname !== 'localhost'){
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?a23562032588a6cc6f760ec2c3eac399";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+}	
+	
+	</script>
+	<script charset="UTF-8">
+	
+// const selectWords = cet4_700.slice(num,num + 11)
+// const selectWords = cet4_700
+var chineseOfWord = {}
+// words = selectWords.map(item=>{
+// 	const keys = Object.keys(item)
+// 	chineseOfWord[keys[0]] = item[keys[0]]
+// 	return keys[0]
+// })
+// for(var i = 0;i < len; i++){
+// 	var start = (i)*10
+// 	var end = start + 10
+// 	var arr = enList.slice(start,end)
+// 	var value = arr.join(',')
+// 	ig.WORDS.EN[i] = value.split(',')
+	
+// }
+var sliceList =  enList.words.slice(start,end)
+for(var i = 0; i < sliceList.length;i++){
+	sliceList[i] = sliceList[i].split(',')
+ 
+}
+ig.WORDS.EN = sliceList
+ig.bookList = enList.book.slice(start,end)
+// console.log('ig.WORDS.EN', ig.WORDS.EN)
+// console.log('chiig.WORDS.ENneseOfWord', chineseOfWord)
+for(var i = 0; i < enList.words.length; i++){
+	var enRow = enList.words[i]
+	enRow = enRow.split(',')
+	var cnRow = cnList[i]
+	cnRow = cnRow.split(',')
+	for(let j = 0; j < cnRow.length;j++){
+		if(!chineseOfWord[enRow[j]]){
+			chineseOfWord[enRow[j]] = cnRow[j]
+		}
+	}
+}
+
+
+	
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+</head>
+<body>
+	<canvas id="ztype-game-canvas"></canvas>
+	<div id="book">book</div>
+</body>
+</html>

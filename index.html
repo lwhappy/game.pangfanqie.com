@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<title>raz打字游戏，raz星空大战</title>
+	<meta name="keywords" content='raz，打字游戏，星空大战' />
+   <meta name="description" content='一个练习RAZ词汇的游戏网页'>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="jquery-3.6.0.min.js" charset="UTF-8"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			color:#333;
+			font-size:14px;
+		}
+		h1{
+			display:flex;
+			justify-content: flex-start;
+			align-items:center;
+			color:#FA4E4D;
+			font-size:20px;
+		}
+		h3{
+			font-size:14px;
+			margin:10px 0;
+		}
+		h1 img{
+			width:100px;
+		}
+		h1 span{
+			font-size:16px;
+		}
+		#list{
+			overflow: hidden;
+		}
+		
+		li{
+			list-style: none;
+			
+    	line-height:30px;
+    	font-size: 14px;
+    	border-width:1px;
+    	box-shadow:none;
+    	border-bottom: solid 1px #e5e5e5;
+    	margin-top: 0px;
+    	
+		}
+		li.active{
+    	border: 1px solid #1881d3;
+    	color: #1881d3;
+    }
+    li.inactive{
+    	border: 1px solid #999;
+    	color: #999;
+    }
+    li .top{
+    	display:flex;
+    	justify-content: flex-start;
+
+    }
+    li .top .label{
+    	font-weight:bold;
+    }
+    li .top .total{
+    	margin:0 10px;
+    }
+    li .top .complete .completeNum{
+    	color:#365fd1;
+    	margin:0 2px;
+    }
+    li .middle{
+    	display:flex;
+    	justify-content: space-between;
+    }
+    li .middle .range{
+    	display: flex;
+    	justify-content: flex-start;
+    	align-items:center;
+    	line-height:30px;
+    	height:30px;
+    }
+    li .middle .range .input{
+    	width:40px;
+    	height:20px;
+    	line-height:20px;
+    	border:solid 1px #999;
+    	margin:0 2px;
+    	text-indent:4px;
+    }
+    
+    li .middle .start{
+    	border:solid 1px #365fd1;
+    	color:#365fd1;
+    	border-radius:6px;
+    	padding:0 4px;
+    	background-color:#fff;
+    	height:30px;
+    	line-height:30px;
+    }
+    
+    li .bottom{
+    	display:flex;
+    	justify-content: flex-start;
+    	align-items: flex-start;
+    	color:#666;
+    	font-size:12px;
+    }
+    li .bottom .value{
+    	flex:1;
+    	width:0;
+    }
+    li .bottom .expand{
+    	color:#999;
+    	font-size:12px;
+    }
+    li .bottom .ellipsis{
+    	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+		#container{
+			padding:10px 10px;
+		}
+		.copyright{
+			margin-top:100px;
+			text-align:center;
+		}
+		.copyright a{
+			color:#999;
+			text-decoration: none;
+		}
+	</style>
+	<script>
+if(location.hostname !== 'localhost'){
+		var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "https://hm.baidu.com/hm.js?a23562032588a6cc6f760ec2c3eac399";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+}
+
+
+	
+	</script>
+	
+	</head>
+
+<body>
+	<div id="container">
+		<h1 style="margin-bottom:10px;">raz打字游戏，raz星空大战</h1>
+		<p style="margin-top:10px">RAZ分级阅读绘本AA-Z2，共3000+本数，提取出所有词汇，通过星空大战游戏的方式加强对单词的记忆 </p>
+		<p style="margin-top:10px">本游戏所有词汇均来自RAZ分级阅读APP,需要系统学习RAZ词汇的用户请到<a style="color:#365fd1;text-decoration: none;" target="_blank" href="https://raz.pangfanqie.com/">https://raz.pangfanqie.com/</a>下载安装app</p>
+		<p style="display:flex;justify-content: flex-end;margin-top:6px"><span style="cursor:pointer;font-size:12px;color:#365fd1;" onclick="fillData()">刷新数据</span></p>
+		<ul id="list" >
+			<li num="AA">
+
+				<div class="top">
+					<p class="label">级别：AA</p>
+					<p class="total">共100本</p>
+					<p class="complete">已完成<span class="completeNum">0</span>本</p>
+				</div>
+				<div class="middle">
+					<p class="range">
+						<span>第</span>
+						<input class="input from" type="number" min="1" max="100" step="1" value="1">
+						<span>本 到 第 </span>
+						<input class="input to" type="number" min="1" max="100" step="1" value="10">
+						<span>本</span>
+					</p>
+					<button class="start">开始练习</button>
+				</div>
+				<div class="bottom">
+					
+					<p class="label">包含绘本：</p>
+					<p class="value ellipsis">Farm Animals;Go,Go,Go;Jump Over;Pets;Plains Animals;Rainforest Animals;The Coast;Water;Spring;Summer;It Is Fall;Winter;The Ocean;The Plant;The Chicken;These Birds;Rain on fairyland;Jungle Friends;Animals Nap;Colorful Eggs;Purple;Yellow;Blue;Green;Orange;Red;White;Black;One;Two;Three;Four;Five;Six;Seven;Eight;Nine;Ten;Eleven;Twelve;Counting Bugs;One Insect;Counting Letters;The Street;City Street;The City;The Playground;Christmas Eve;My Hanukkah;Too Many Sweets;Lunch At School;Valentine's Day Gifts;Pasta;My Gift for Mom;The Garden;Play Ball;The Baseball Game;The Trip;The Supermarket;The Zoo;The School;The Classroom;Summer Camp;Summer Picnics;The Post Office;The Bookstore;On an Airplane;The Subway;At The Lake;The Backyard;My School Bus;Fido Gets Dressed;Picking Apples;My Closet;The Birthday Party;Show Some Love;This Kitchen;My Bath;Toys;We Build;We Go Camping;The Fort;My Garden;The Book;My Easter;Mom;The Movie;My Family;Good Night;Funny Cat;Big;Little;Under;On;In;Out;Off;Over;The Market;These Are Opposites</p>
+					<p class="expand">展开</p>
+				</div>
+			</li>
+			<li num="A">
+
+				<div class="top">
+					<p class="label">级别：A</p>
+					<p class="total">共100本</p>
+					<p class="complete">已完成<span class="completeNum">0</span>本</p>
+				</div>
+				<div class="middle">
+					<p class="range">
+						<span>第</span>
+						<input class="input from" type="number" min="1" max="100" step="1" value="1">
+						<span>本 到 第 </span>
+						<input class="input to" type="number" min="1" max="100" step="1" value="10">
+						<span>本</span>
+					</p>
+					<button class="start">开始练习</button>
+				</div>
+				<div class="bottom">
+					<p class="label">包含绘本：</p>
+					<p class="value ellipsis">Pond Animals;My Dog;The Big Cat;The Forest;Mom and I;What Lives Here ?;Baby Animals;I Love Flowers;Hamster Home;Oh.Raccoon;Birds Goes Home;Spring Weather;Vegetables;Fruit Colors;Hello, Butterfly;Shapes in Nature;Spring and Fall;The Rainstorm;Rabbits;Snake Colors;I See My Colors;Bird Colors;Bedtime Counting;Carlos Counts Kittens;Maria Counts Pumpkins;This Insect;Halloween Pumpkins;Fruit;Going Places;Now We Bake;My Easter Eggs;This Is My Halloween;Halloween Houses;Smells Like Thanksgiving;This Feels;Where to Go;Car Parts;Fun In The Water;I Draw A Bunny;Sundae Time;This Tastes;What Do I Hear?;The Mall;All Kinds Of Buttons;Make A Salad;Move It;Our Apartment Building;This Is My Bear;Write!;This Sounds;Time for Eggs;This Looks;I Go;My Room;A Fish Sees;Go Fly a Kite;He Runs;Maria Goes to School;Carlos Goes to School;I Can;Getting Dressed;These Shoes;Whatl Like;I Love Pirates;The Parade;I Dream;Clean, Not Clean;Building with Blocks;My House;Smile;Make Me Laugh;I Set the Table;I Save Money;My Body;What Makes Me Happy;My Hair;Athletes;Nice. Not Nice;Safe, Not Safe;You Can Dance;I Can Skate;My Little Brother;Muscles;Dad and I;For Mom;My Face;All kinds of Faces;Grandparents Are Great;We Can Make Sounds;In and Out;Up and Down;Who Has It?;This Smells I;Opposites;Hot and Cold;Christmas Cookies;Where They Hid;Scary. Not Scary;This Lizard;IPush</p>
+					<p class="expand">展开</p>
+				</div>
+			</li>
+			<li num="B">
+
+				<div class="top">
+					<p class="label">级别：B</p>
+					<p class="total">共99本</p>
+					<p class="complete">已完成<span class="completeNum">0</span>本</p>
+				</div>
+				<div class="middle">
+					<p class="range">
+						<span>第</span>
+						<input class="input from" type="number" min="1" max="99" step="1" value="1">
+						<span>本 到 第 </span>
+						<input class="input to" type="number" min="1" max="99" step="1" value="10">
+						<span>本</span>
+					</p>
+					<button class="start">开始练习</button>
+				</div>
+				<div class="bottom">
+					<p class="label">包含绘本：</p>
+					<p class="value ellipsis">Taking Care of Chase;The Pet Rats;Grade's nose;Playful Puppy;My Pet Dinosaur;On the Farm;Bonkers Likes to Bark;Animal Sounds;Pond Life;Where is Water;I Love the Earth;Animal Coverings;Animal Ears;The New Forest Path;What Has These Feet;What Has These Stripes;What Has This Tail;What Has These Spots;Amazing Caves;Animals Can Move;Rain in the City;Rain in the Country;Gobi Desert Animals;Wind Blows;How Many Legs;what flies in the sky;Paint It Purple;Our Show;Ten;My Brian;High or Low;Healthy Snacks;Things Made of Wood;What Gives Cover;Fun With Paper;Bananas Sometimes;Henry's Hike;Applesauce;We Pack a Picnic;The Picnic;We Make Cookies;Halloween Costumes;On Thanksgiving;The Aquarium;Too High;Trucks;So Many Shops;Animal Caution Signs;Stop That Cat;Go Animals Go;I Read a Book;I Pick Up;You and I;Carlos and His Teacher;Maria and Her Teacher;I Love Art Class;Games We Play;The Big Game;Clean Is Not for Me;Beach Fun;Taking the Bus;Too Many Leaves;A Cold Day;The Kids Built It;Firefly;Under My Bed;We Do Not Share;After School;All By Myself;Boats;Old and New;The Sandwich;Valentines All Around;Mixing Colors;It is School Time;Time For Soccer;I Am a Community Worker;Winter Fun;It is Spring;Sophie Goes for a Walk;Yours or Mine;Near and Far Away;You Can Go;Swing, Sydney, Swing;Bridges;Where;Are These His or Hers;Lazy Lulu;Light and Heavy;The Hungry Goat;Three Baby Birds;Two Little Dicky Birds;Wet Wally;Drop It;Mouse in the City;Crows on a Wire;Wake up, Rooster;Make a Superhero;This Turtle</p>
+					<p class="expand">展开</p>
+				</div>
+			</li>
+			<li num="C">
+
+				<div class="top">
+					<p class="label">级别：C</p>
+					<p class="total">共103本</p>
+					<p class="complete">已完成<span class="completeNum">0</span>本</p>
+				</div>
+				<div class="middle">
+					<p class="range">
+						<span>第</span>
+						<input class="input from" type="number" min="1" max="103" step="1" value="1">
+						<span>本 到 第 </span>
+						<input class="input to" type="number" min="1" max="103" step="1" value="10">
+						<span>本</span>
+					</p>
+					<button class="start">开始练习</button>
+				</div>
+				<div class="bottom">
+					<p class="label">包含绘本：</p>
+					<p class="value ellipsis">What Is at the Zoo;More Baby Animals;All About Spiders;Ladybugs;Apple Tree;How Frogs Grow;Moms Do So Much;Allie and Ollie;What Animals Eat;The Animals of Canada;Different Kinds of Sharks;We Count;Many Kinds of Dinosaurs;Snow Falls;Strange Animals;That's a Fruit;All About Penguins;All about Earthworms;Ice;Animals That Sting;How Many?;Spirals, Spirals Everywhere;Space;The Moon;Then and Now;The Woodsy Band Jam;Yummy, Yummy;Mash the Potatoes;Making Salsa;We Learn to Swim;The Easter Egg Hunt;What Can I Be;Going Away;A Place Called Home;City Shapes;Road Trip;Shadows;Building a Road;Airplanes;Rocks;Get In;We Buy;Birthday Party;Fall Fun;Busy at School;Taking Turns;What Can We Draw;I Can Be;At the Fair;Teeth Brushing Fun;What I Want;My Clothes Are Too Small;Pairs;I Looked Everywhere;I Won't;Jack and Lily's Favorite Food;Spring Cleaning;Machines at Home;I wonder;Go Away, Lily;Lucy Did It;We Make a Snowman;New Again;Water Fight;Tools;Pick Me !;We Make Good Choices;What's for Breakfast;Winter Hats;You Like What;The Festival of Lights;I Can Help;Quiet or Loud;How Many Wheels?;What Do I Wear;Wash Your Hands;Elephant Car Wash;How Things Move;Fall Foods;Feelings;What's My Job;When is Nighttime;Take a Bite;Fall;What Season Is It;My Teacher;Sherman Sure Is Shy;Selfish Sasha;Open and Close;There is a Mouse in the House;Mongo and Cutie;One Stubborn Horse;Who Stole the North Pole;Who, Who, Who;Abby and Zots;I Want to Be a Cat;The Box;Too Hot !;Build a World;What Does the Wind Move;We Are All People;Making Music;My Tree House</p>
+					<p class="expand">展开</p>
+				</div>
+			</li>
+			<li num="D">
+
+				<div class="top">
+					<p class="label">级别：D</p>
+					<p class="total">共92本</p>
+					<p class="complete">已完成<span class="completeNum">0</span>本</p>
+				</div>
+				<div class="middle">
+					<p class="range">
+						<span>第</span>
+						<input class="input from" type="number" min="1" max="92" step="1" value="1">
+						<span>本 到 第 </span>
+						<input class="input to" type="number" min="1" max="92" step="1" value="10">
+						<span>本</span>
+					</p>
+					<button class="start">开始练习</button>
+				</div>
+				<div class="bottom">
+					<p class="label">包含绘本：</p>
+					<p class="value ellipsis">cucumber,grow,onion,plant,salad,vegetable;bee,favorite,feed,help,job,without;carefully,dock,spot,surface,tricky,whale;buzz,crunch,eat,fly,food,frog,hop,hungry,munch;burrow,octopus,pond,prairiedog,whale,woodchuck;clean,water,healthy,salt,soil,swamp;bat,cave,evening,hang,hunt,return;egg,fall,north,plant,seed,south,spring,sprout;air,inside,outside,plant,pot,rock,sand,soil,sunlight,water;fog,ice,spooky,still,water;blue,creamy,darker,fuzzy,jumbo,puffy,round,sky,tall,thick;bulb,fall,plan,plant,spring,winter;grub,silky,slow,smooth,surprise,wiggly;bored,butterfly,gray,jumped,lizard,play;cage,children,flew,path,playground,safe;circled,couch,crossed,curled,jumped,strolled;clear,cover,insect,spot,wasp,wing;antelope,curve,fight,horn,scratch,straight;bushe,climb,crawl,hide,squirrel,wood;busy,cattail,pond,turtle,water;frog,grow,like,strange,tadpole;bog,cranberry,fruit,sauce,tart;amazing,breath,catch,otter,swim;born,real,reindeer,sled,travel,weigh;bushy,fox,fur,hunter,mammal,pointy;blunt,eyesight,fin,gill,stripe,shark;antelope,cheetah,faster,run,squirrel,tortoise;body,fin,flipper,paw,swim,tail;brush,long,sticky,strong,thin,tongue;arm,catch,comb,octopus;compare,count,fewer,number,total;compare,greatest,more,number,vegetable;count,gumdrop,igloo,marshmallow,paperclip,rainbow;book,library,listen,read,story,visit;breakfast,catch,picnic,plan,together;bakery,firestation,grocerystore,library,neighborhood,street;airport,bike,bus,car,ferry,house,office,school,skateboard,store,subway,taxi,walk,work;Easter,hunt,plan,sneaky,sorry;ghost,Halloween,pumpkin,spider,treat,trick;city,corral,country,farmhouse,orchard,shed;bus,car,city,country,friends,learn,morning,preschool,read,story,teacher;city,different,freeway,move,store,subway;explore,fair,fall,hay,maze;crash,dive,imagine,rough,salty,sense;bubble,colorful,material,pocket,solid,stick;bear,give,keep,old,pile,puzzle;book,bookstore,clothing,coat,food,grandfather,grandmother,pet,shoe,shop,toy;book,bring,buddy,choose,climb,night,read;broccoli,ghost,gorilla,pirate,scare,vampire;bark,bump,fern,ink,lamp,piece;birdseed,dried,fruit,hang,slice;dry,mix,mud,sand,scoop,shape;bandanna,costume,fin,mane,snout;counter,litter,newspaper,plastic,recycle,steel;drawer,eraser,fix,found,mistake,need;different,fall,lost,loved,old,teddybear;ago,beard,hairy,shave,smooth,wild;both,class,idea,name,student,turn;fun,haircut,scare,snip,trim;act,costume,line,nervous,prop,stage;backyard,camp,flashlight,pajama,bag,tent;behind,cover,hide,inside,sleepy,time;anyway,cookie,know,password,pillow,want;birthday,cake,good,make,nothing,sweet;bill,carry,cent,dime,dollar,nickel,penny,quarter;braid,curly,different,spike,straight,swing;float,giveup,important,keep,tie,try;aunt,basketball,find,neighbor,plan,schoolwork;collect,create,enjoy,hobby,relax,write;ear,eye,finger,hear,nose,see,sense,smell,taste,tongue,touch;baker,community,construction,doctor,firefighter,important,policeofficer,servicedog,teacher;babysitter,dentist,firefighter,gardener,policeofficer,roadworker;baker,farmer,grocer,miller,trucker,worker;baseball,batter,catcher,important,infielder,outfielder,pitcher,player,team,together;amazing,captain,miner,pilot,ranger,stage;climb,dance,jump,kitchen,paint,shelve,slide,wash;bumpy,climb,gorilla,jump,monkey,mossy;earthquake,quilt,square,squeal,squint,squish;bear,deer,fall,fox,head,hit,mouse,owl,rabbit,run,sky,squirrel;breakfast,curiou,dinner,fish,lunch,pizza,please,snack;band,music,play,quiet,swamp,whole;ant,bear,bluejay,cold,fox,mitten,rabbit,squash,squeeze,squish,warm;brought,feast,hungry,idea,soup,stone;alone,cold,lonely,loon,sleepy,swam,warm;blackberry,cup,enough,pick,plenty;find,eat,hungry,space,trash,tree;closet,cloth,give,space,style;change,hear,mean,silent,sound,word;children,world,different,way,donkey,sled;wheel,truck,hill,fence,field,cow,barn,chicken,bridge,river,town;birdhouse,log,busstop,mailbox,home,need;bright,shiny,fancy,spotted,scary,striped</p>
+					<p class="expand">展开</p>
+				</div>
+			</li>
+		</ul>
+		<p style="cursor:pointer;color:#999;text-align:center;margin:10px 0;" onclick="alert('请先完成级别AA-D')">更多</p>
+		<div class="copyright">
+			<a href="https://beian.miit.gov.cn/" target="_blank">粤ICP备16014693号-1
+			</a>
+		</div>
+	</div>
+	
+	<script>
+		function fillData(){
+			var haveReadBooks = localStorage.getItem('haveReadBooks')
+			try{
+				haveReadBooks = JSON.parse(haveReadBooks)
+			}catch(e){
+				console.log(e)
+			}
+			
+			$('#list li').each(function(){
+				var key = $(this).attr('num')
+				var completeNum = haveReadBooks[key]?haveReadBooks[key].length:0
+				$(this).find('.completeNum').text(completeNum)
+			})
+		}
+		$(document).ready(function(){
+			var clickEvent = function(){
+			$('#list li .start').on('click',function(){
+				var parent = $(this).parents('li')
+				if(parent.hasClass('inactive')){
+					return
+				}
+				var start = $(this).parents('.middle').find('.from').val()
+				var end = $(this).parents('.middle').find('.to').val()
+				if(Number(start) > Number(end)){
+					alert('书本数值输入有误')
+					return
+				}
+				window.location = 'game.html?num=' + parent.attr('num') + '&start=' + start + '&end=' + end
+			})
+			$('#list li .expand').on('click',function(){
+				if($(this).siblings('.value').hasClass('ellipsis')){
+					$(this).siblings('.value').removeClass('ellipsis')
+					$(this).text('收缩')
+				}else{
+					$(this).siblings('.value').addClass('ellipsis')
+					$(this).text('展开')
+				}
+			})
+		}
+		
+		clickEvent()
+		fillData()
+	})
+	
+	$(window).bind('pageshow', function(event) {
+    fillData()
+	});
+	</script>
+</body>
+
+</html>
